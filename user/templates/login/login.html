@@ -1,0 +1,14 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block title %}
+    Login
+{% endblock %}
+   
+{% block content %}
+        <form action = '' method = 'post'>
+            {% csrf_token %}    
+            <li><input type='text' name='username'></li>
+            <li><input type='password' name='password'></li>
+            <li><input type='submit' value='login'></li>
+        </form>
+{% endblock %}

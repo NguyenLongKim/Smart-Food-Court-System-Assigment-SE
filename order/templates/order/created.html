@@ -1,0 +1,18 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block title %}
+    Order successfully
+{% endblock %}
+
+{% block content %}
+     <div class="container">
+        <div class="row" style="margin-top: 6%">
+            <div class="col-md-8 col-md-offset-2">
+                <h3 class="page-header">Thanks for your order with us
+                </h3>
+                <p>Your order has been successfully completed.</p>
+                <p>Created at <strong>{{ order.created }}</strong></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
