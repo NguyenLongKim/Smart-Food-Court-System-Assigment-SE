@@ -1,0 +1,67 @@
+{% extends 'order/base.html' %}
+
+{% block title %}SFCS | Order result {% endblock %}
+
+{% block CustomerCart %}
+{% endblock %}
+
+{% block HeroSection %}
+{% endblock %}
+
+{% block BreadcrumbTitle%}
+{% endblock %}
+
+{% block content %}
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__table">
+                            <table>
+                                {% if order_result %}
+                                    <thead>
+                                        <tr>
+                                            <th class="shoping__product"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="shoping__cart__item">
+                                                <h4>Order succeccfully!</h4>
+                                                <h4>Thanks for your order with us</h4>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                {% else %}
+                                    <thead>
+                                        <tr>
+                                            <th class="shoping__product"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="shoping__cart__item">
+                                                <h4>Your balance is not enough. Order failed!</h4>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__btns">
+                            <a href="{% url 'customer:checkout' %}" class="primary-btn cart-btn">BACK</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+    </section>
+    <!-- Shoping Cart Section End -->
+{% endblock %}
+  
+   

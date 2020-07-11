@@ -4,7 +4,8 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     type_account = models.CharField(max_length=50)
 
-class Customer(User):
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     balance = models.FloatField(default=0)
 
     class Meta:
@@ -12,15 +13,16 @@ class Customer(User):
         verbose_name_plural = 'Customers'
 
 
-class VendorOwner(User):
-    pass
+class VendorOwner(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'VendorOwners'
         verbose_name_plural = 'VendorOwners'
 
 
-class Cook(User):
+class Cook(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     work_for = models.ForeignKey(VendorOwner, on_delete=models.CASCADE)
 
     class Meta:
@@ -28,8 +30,8 @@ class Cook(User):
         verbose_name_plural = 'Cooks'
 
 
-class Manager(User):
-    pass
+class Manager(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Managers'
