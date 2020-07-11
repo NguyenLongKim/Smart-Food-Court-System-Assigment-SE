@@ -1,0 +1,50 @@
+{% extends 'order/base.html' %}
+{% load static %}
+{% block title %}SFCS | Checkout{% endblock %}
+
+{% block CustomerCart %}
+    <div class="col-lg-3">
+        <div class="header__cart">
+            <ul>
+                <li><a href="{% url 'customer:view-cart' %}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            </ul>
+            <div><a href="{% url 'customer:view-cart' %}"> My cart</a></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block HeroSection %}
+{% endblock %}
+
+{% block BreadcrumbTitle%}
+    <h2>Checkout</h2>
+{% endblock %}
+
+{% block content %}
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <form action="#">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4>Your Order</h4>
+                                <div class="checkout__order__products">Products <span>Total</span></div>
+                                <ul>
+                                    {% for item in all_items %}
+                                    <li>{{item.food.name}} <span>{{item.total_price}}</span></li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="checkout__order__total">Total cost: <span>{{cart.total_cost}} VND</span></div>
+                                <div class="checkout__order__subtotal">Your Balance<span>{{request.user.customer.balance}}</span></div>
+                                <a href="{% url 'customer:submit-order' %}" class="primary-btn">Submit order</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+{% endblock %}

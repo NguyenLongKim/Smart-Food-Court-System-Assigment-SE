@@ -1,11 +1,13 @@
 from django.contrib import admin
-from .models.user import Customer, VendorOwner, Cook, Manager
+from .models.user import User, Customer, VendorOwner, Cook, Manager
 from .models.cart import Cart, CartItem
 from .models.food import Category, Food
 from .models.vendor import Vendor
 from .models.order import Order, OrderItem
 
 # Register your models here.
+
+admin.site.register(User)
 
 admin.site.register(Customer)
 
