@@ -7,8 +7,6 @@ from .models.order import Order, OrderItem
 
 # Register your models here.
 
-admin.site.register(User)
-
 admin.site.register(Customer)
 
 admin.site.register(VendorOwner)
