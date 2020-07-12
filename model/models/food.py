@@ -1,15 +1,17 @@
 from django.db import models
 from .vendor import Vendor
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
     class Meta:
-        verbose_name = 'Categories'
+        verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.name
+
 
 class Food(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -23,5 +25,5 @@ class Food(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Foods'
+        verbose_name = 'Food'
         verbose_name_plural = 'Foods'
