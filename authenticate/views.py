@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from model.models.cart import Cart
 from django.http import HttpResponse
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 # Create your views here.
 
 
@@ -41,14 +43,19 @@ def GetSignUp(request):
 
 
 def PostSignUp(request):
-    inusrname = request.POST.get('username')
+    inemail = request.POST.get('email')
     inpassword = request.POST.get('password')
-    myuser = authenticate(username=inusrname, password=inpassword)
-    if ((myuser is not None) and (myuser.user_type == 1)):
-        login(request, myuser)
-        return redirect('customer:view-menu')
+    inDoB = request.POST.get('date_of_birth')
+    newuser = User.objects.create_user(
+        email=inemail,
+        date_of_birth=inDoB,
+        user_type=1,
+        password=inpassword,
+    )
+    if (newuser is not None):
+        return render(request, 'signup/signed.html')
     else:
-        return HttpResponse('Login failed')
+        return HttpResponse('Sign up failed')
 
 
 def SignUp(request):
