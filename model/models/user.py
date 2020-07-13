@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
 class UserManager(BaseUserManager):
@@ -25,12 +25,11 @@ class UserManager(BaseUserManager):
             user_type=4,
         )
         user.is_admin = True
-        user.is_staff = True
         user.save(using=self._db)
         return user
 
 
-class User(AbstractUser):
+class User(AbstractBaseUser):
     USER_TYPE_CHOICES = (
         (1, 'Customer'),
         (2, 'VendorOwner'),
@@ -44,7 +43,7 @@ class User(AbstractUser):
     )
     date_of_birth = models.DateField()
     is_admin = models.BooleanField(default=False)
-
+    is_active = models.BooleanField(default=True)
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['date_of_birth', 'user_type']
@@ -60,6 +59,12 @@ class User(AbstractUser):
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
         return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin
 
 
 class Customer(models.Model):
