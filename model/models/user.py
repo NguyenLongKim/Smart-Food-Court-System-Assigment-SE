@@ -12,9 +12,17 @@ class UserManager(BaseUserManager):
             date_of_birth=date_of_birth,
             user_type=user_type,
         )
-
         user.set_password(password)
         user.save(using=self._db)
+
+        if user_type == 1:
+            Customer.objects.set_user(user=user, user_type=user_type)
+        elif user_type == 2:
+            VendorOwner.objects.set_user(user=user, user_type=user_type)
+        elif user_type == 3:
+            Cook.objects.set_user(user=user, user_type=user_type)
+        elif user_type == 4:
+            Manager.objects.set_user(user=user, user_type=user_type)
         return user
 
     def create_superuser(self, email, date_of_birth='2000-01-01', user_type=4, password=None):
@@ -27,6 +35,13 @@ class UserManager(BaseUserManager):
         user.is_admin = True
         user.save(using=self._db)
         return user
+
+
+class UserTypeManager(models.Manager):
+    def set_user(self, user, user_type):
+        userType = self.create(user=user)
+        userType.save(using=self._db)
+        return userType
 
 
 class User(AbstractBaseUser):
@@ -70,6 +85,7 @@ class User(AbstractBaseUser):
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     balance = models.FloatField(default=0)
+    objects = UserTypeManager()
 
     class Meta:
         verbose_name = 'Customer'
@@ -78,6 +94,7 @@ class Customer(models.Model):
 
 class VendorOwner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    objects = UserTypeManager()
 
     class Meta:
         verbose_name = 'VendorOwner'
@@ -87,6 +104,7 @@ class VendorOwner(models.Model):
 class Cook(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     work_for = models.ForeignKey(VendorOwner, on_delete=models.CASCADE)
+    objects = UserTypeManager()
 
     class Meta:
         verbose_name = 'Cook'
@@ -96,6 +114,7 @@ class Cook(models.Model):
 class Manager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_staff = True
+    objects = UserTypeManager()
 
     class Meta:
         verbose_name = 'Manager'
