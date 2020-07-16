@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'model',
     'authenticate',
     'customer',
+    'cook',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
