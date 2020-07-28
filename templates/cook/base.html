@@ -48,7 +48,6 @@
                                     <span class="arrow_carrot-down"></span>
                                     <ul>
                                         <li><a href="#">My Profile</a></li>
-                                        <li><a href="{% url 'customer:view-orders-list' %}">Order Status</a></li>
                                         <li><a href="{% url 'authenticate:log_out' %}">Logout</a></li>
                                     </ul>
                                 </div>
@@ -75,8 +74,6 @@
                         </ul>
                     </nav>
                 </div>
-                {% block CustomerCart %}
-                {% endblock %}
             </div>
             <div class="humberger__open">
                 <i class="fa fa-bars"></i>
@@ -98,7 +95,7 @@
                             <h2>SFCS</h2>
                             <div class="breadcrumb__option">
                                 <a href="./index.html">Home </a>
-                                <span>Menu</span>
+                                <span>Orders list</span>
                             </div>
                         {% endblock %}
                     </div>
