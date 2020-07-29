@@ -46,8 +46,27 @@ class Menu:
             return None
 
     @staticmethod
+    def get_list_foods_by_vendor(vendor):
+        if Food.objects.filter(vendor=vendor).exists():
+            return Food.objects.filter(vendor=vendor)
+        else:
+            return None
+
+    @staticmethod
     def get_food(food_id):
         try:
             return Food.objects.get(id=food_id)
         except ObjectDoesNotExist:
             return None
+
+    @staticmethod
+    def Search(food_name):
+        foods = Food.objects.all()
+        rt = []
+        for food in foods:
+            if (food_name.lower() in food.name.lower() or food.name.lower() in food_name.lower()):
+                rt.append(food)
+        if not rt:
+            return None
+        else:
+            return rt
