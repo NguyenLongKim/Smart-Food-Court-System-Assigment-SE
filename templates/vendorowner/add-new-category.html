@@ -1,0 +1,35 @@
+{% extends 'vendorowner/base.html' %}
+
+{% block title %}SFCS | Vendor Owner | Add new category{% endblock %}
+
+{% block HeroSection %}
+{% endblock %}
+
+{% block BreadcrumbTitle%}
+    <h2>{{vendor_name}} | Add new category</h2>
+{% endblock %}
+
+{% block content %}
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-12">  
+                        <pre>
+                            {% if message %}
+                            {{message}}
+                            {% endif %}
+                            <input type="text" name='new-category-name' required>
+                            <input type="submit" value="Add">
+                        </pre>                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- Shoping Cart Section End -->
+{% endblock %}
+  
+   

@@ -20,10 +20,8 @@
                             <thead>
                                 <tr>
                                     <th class="shoping__product">ID</th>
-                                    <th>Vendor</th>
-                                    <th>Edit vendor</th>
+                                    <th>Vendor's name</th>
                                     <th>View/Edit menu</th>
-                                    <th>View report</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,18 +34,8 @@
                                             <h5>{{vendor.name}}</h5>
                                         </td>
                                         <td>
-                                            <a href="">
-                                                <span>Edit vendor</span>
-                                            </a>
-                                        </td>
-                                        <td>
                                             <a href="{% url 'vendorowner:view-vendor-detail' vendor.id %}">
                                                 <span>View/Edit menu</span>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="">
-                                                <span>View report</span>
                                             </a>
                                         </td>
                                     </tr>

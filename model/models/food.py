@@ -3,6 +3,7 @@ from .vendor import Vendor
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, default=None)
 
     class Meta:
         verbose_name = 'Categories'
