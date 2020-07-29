@@ -39,7 +39,8 @@ def ViewBySearch(request):
     context = {
         'categories': Menu.get_all_categories(),
         'vendors': Menu.get_all_vendors(),
-        'foods': Menu.Search(food_name=request.POST['food_name'])
+        'foods': Menu.Search(food_name=request.POST['food_name']),
+        'search' : True,
     }
     return render(request, 'order/shop-grid.html', context)
 

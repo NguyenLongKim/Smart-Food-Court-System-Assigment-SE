@@ -80,6 +80,8 @@
                                             <h5>Category: <b>{{category.name}}</b> || Foods found: <b>{{foods.count}}</b></h5>
                                         {% elif vendor %}
                                             <h5>Vendor: <b>{{vendor.name}}</b> || Foods found: <b>{{foods.count}}</b></h5>
+                                        {% elif search %}
+                                            <h5>Search result || Foods found: <b>{{foods.count}}</b></h5>
                                         {% else %}
                                             <h5>All foods || Foods found: <b>{{foods.count}}</b> </h5>
                                         {% endif %}
