@@ -18,6 +18,9 @@ def PostLogin(request):
     elif ( (myuser != None) and (myuser.type_account=='cook') ):
         login(request, myuser)
         return redirect('cook:view-orders-list')
+    elif ( (myuser != None) and (myuser.type_account=='vendorowner') ):
+        login(request, myuser)
+        return redirect('vendorowner:view-vendors-list')
     else:
         return HttpResponse('Login failed')
 

@@ -12,7 +12,7 @@ class Category(models.Model):
         return self.name
 
 class Food(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True)
     name = models.CharField(max_length=100)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     description = models.TextField(blank=True, max_length=256)

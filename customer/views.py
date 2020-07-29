@@ -8,11 +8,6 @@ from .cart import CartManagement
 from .order import OrderManagement
 from django.http import HttpResponse
 # Create your views here.
-
-def SignUp(request):
-    user = User.objects.create_user(username='vendorowner1', password='09112000', type_account = 'vendor')
-    VendorOwner.objects.create(user = user)
-    return HttpResponse('success')
     
 def ViewMenu(request):
     context = {

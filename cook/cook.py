@@ -8,7 +8,10 @@ class CookServices:
         for item in OrderItem.objects.all():
             if item.food.vendor == cook.work_for:
                 orders_list.append(item)
-        return orders_list
+        if not orders_list:
+            return None
+        else:
+            return orders_list
 
     @staticmethod
     def ChangeOrderStatus(order_id, new_status):

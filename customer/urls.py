@@ -5,7 +5,6 @@ from .views import *
 app_name = 'customer'
 
 urlpatterns = [
-    path('create/', SignUp),
     path('view-menu/', ViewMenu, name='view-menu'),
     path('categoies/<int:categoryID>', ViewFoodsByCategory, name='view-foods-by-category'),
     path('food_detail/<int:foodID>', ViewFoodDetail, name='view-food-detail'),

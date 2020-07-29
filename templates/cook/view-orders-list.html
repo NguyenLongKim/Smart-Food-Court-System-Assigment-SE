@@ -17,6 +17,7 @@
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
                         <table>
+                            {% if orders_list %}
                             <thead>
                                 <tr>
                                     <th class="shoping__product">Products</th>
@@ -38,7 +39,7 @@
                                         <td>                                                        
                                             {{item.created}}                                       
                                         </td> 
-                                        <td class="shoping__cart__quantity">
+                                        <td>
                                             <form action="{% url 'cook:change-order-status' item.id %}" method="post">
                                                 {% csrf_token %}
                                                 <select name="new_status">
@@ -62,6 +63,20 @@
                                     </tr>
                                 {% endfor %}
                             </tbody>
+                            {% else %}
+                                <thead>
+                                    <tr>
+                                        <th class="shoping__product"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="shoping__cart__item">
+                                            <h4>You don't have any order</h4>
+                                        </td>
+                                    </tr>
+                                </tbody>         
+                            {% endif %}
                         </table>
                     </div>
                 </div>
