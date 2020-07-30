@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from .forms import AddNewFoodForm
 from .vendorowner import VendorOwnerServices
 from model.models.food import Food 
