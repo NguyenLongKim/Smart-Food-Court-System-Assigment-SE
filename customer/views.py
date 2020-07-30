@@ -8,18 +8,12 @@ from .cart import CartManagement
 from .order import OrderManagement
 from django.http import HttpResponse
 # Create your views here.
-
-def SignUp(request):
-    user = User.objects.create_user(username='vendorowner1', password='09112000', type_account = 'vendor')
-    VendorOwner.objects.create(user = user)
-    return HttpResponse('success')
     
 def ViewMenu(request):
     context = {
-        'category': None,
         'categories': Menu.get_all_categories,
-        'foods': Menu.get_all_foods(),
         'vendors': Menu.get_all_vendors(),
+        'foods': Menu.get_all_foods()
     }
     return render(request, 'order/shop-grid.html', context)
 
@@ -27,8 +21,26 @@ def ViewFoodsByCategory(request, categoryID=None):
     context = {
         'category': Menu.get_category(cat_id=categoryID),
         'categories': Menu.get_all_categories(),
-        'foods': Menu.get_list_foods_by_category(category=Menu.get_category(cat_id=categoryID)),
         'vendors': Menu.get_all_vendors(),
+        'foods': Menu.get_list_foods_by_category(category=Menu.get_category(cat_id=categoryID)),  
+    }
+    return render(request, 'order/shop-grid.html', context)
+
+def ViewFoodsByVendor(request, vendorID=None):
+    context = {
+        'vendor': Menu.get_vendor(vendorID),
+        'categories': Menu.get_all_categories(),
+        'vendors': Menu.get_all_vendors(),
+        'foods': Menu.get_list_foods_by_vendor(vendor=Menu.get_vendor(vendorID)),
+    }
+    return render(request, 'order/shop-grid.html', context)
+
+def ViewBySearch(request):
+    context = {
+        'categories': Menu.get_all_categories(),
+        'vendors': Menu.get_all_vendors(),
+        'foods': Menu.Search(food_name=request.POST['food_name']),
+        'search' : True,
     }
     return render(request, 'order/shop-grid.html', context)
 

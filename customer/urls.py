@@ -5,9 +5,10 @@ from .views import *
 app_name = 'customer'
 
 urlpatterns = [
-    path('create/', SignUp),
     path('view-menu/', ViewMenu, name='view-menu'),
     path('categoies/<int:categoryID>', ViewFoodsByCategory, name='view-foods-by-category'),
+    path('vendors/<int:vendorID>', ViewFoodsByVendor, name='view-foods-by-vendor'),
+    path('search-food/', ViewBySearch, name='view-foods-by-search'),
     path('food_detail/<int:foodID>', ViewFoodDetail, name='view-food-detail'),
     path('view-cart/', ViewCart, name='view-cart'),
     path('add_item/<int:food_id>', AddItemToCart, name='add-item-to-cart'),

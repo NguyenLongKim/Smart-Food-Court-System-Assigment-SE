@@ -12,7 +12,6 @@ class Customer(models.Model):
         verbose_name = 'Customers'
         verbose_name_plural = 'Customers'
 
-
 class VendorOwner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -20,15 +19,14 @@ class VendorOwner(models.Model):
         verbose_name = 'VendorOwners'
         verbose_name_plural = 'VendorOwners'
 
-
 class Cook(models.Model):
+    from .vendor import Vendor
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    work_for = models.ForeignKey(VendorOwner, on_delete=models.CASCADE)
+    work_for = models.ForeignKey(Vendor, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Cooks'
         verbose_name_plural = 'Cooks'
-
 
 class Manager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

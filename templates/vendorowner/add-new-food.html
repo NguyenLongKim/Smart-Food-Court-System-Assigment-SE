@@ -1,0 +1,39 @@
+{% extends 'vendorowner/base.html' %}
+
+{% block title %}SFCS | Vendorowner | Add new food{% endblock %}
+
+{% block HeroSection %}
+{% endblock %}
+
+{% block BreadcrumbTitle%}
+    <h2>{{vendor_name}} | Add new food</h2>
+{% endblock %}
+
+{% block content %}
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-12">  
+                        <pre>
+                            <h5><b>Name: </b>{{add_new_food_form.name}}</h5>
+                            <h5>
+                                <b>Category: </b>{{add_new_food_form.category}}
+                                <a href="{% url 'vendorowner:add-new-category' vendor_id %}">Add new category</a>    
+                            </h5> 
+                            <h5><b>Price: </b>{{add_new_food_form.price}}</h5>
+                            <h5><b>Image: </b>{{add_new_food_form.image}}</h5>
+                            <h5><b>Description: </b>{{add_new_food_form.description}}</h5>
+                        </pre>                        
+                    </div>
+                </div>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </section>
+    <!-- Shoping Cart Section End -->
+{% endblock %}
+  
+   

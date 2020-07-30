@@ -1,0 +1,89 @@
+{% extends 'cook/base.html' %}
+
+{% block title %}SFCS | Cook | Orders List{% endblock %}
+
+{% block HeroSection %}
+{% endblock %}
+
+{% block BreadcrumbTitle%}
+    <h2>Orders list</h2>
+{% endblock %}
+
+{% block content %}
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table>
+                            {% if orders_list %}
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">Products</th>
+                                    <th>Quantity</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in orders_list %}
+                                    <tr>
+                                        <td class="shoping__cart__item">
+                                            <img src="{{item.food.image.url}}" alt="">
+                                            <h5>{{item.food.name}}</h5>
+                                        </td>
+                                        <td>
+                                            {{item.quantity}}    
+                                        </td>
+                                        <td>                                                        
+                                            {{item.created}}                                       
+                                        </td> 
+                                        <td>
+                                            <form action="{% url 'cook:change-order-status' item.id %}" method="post">
+                                                {% csrf_token %}
+                                                <select name="new_status">
+                                                    <option value="{{item.status}}"selected>{{item.status}}</option>
+                                                    {% if item.status != 'pending' %}
+                                                        <option value="pending"> pending </option>
+                                                    {% endif %}
+                                                    {% if item.status != 'finish' %}
+                                                        <option value="finish"> finish </option>
+                                                    {% endif %}
+                                                    {% if item.status != '<5 minutes' %}
+                                                        <option value="<5 minutes"> < 5 minutes </option>
+                                                    {% endif %}
+                                                    {% if item.status != '5-10 minutes' %}
+                                                        <option value="5-10 minutes"> 5-10 minutes </option>
+                                                    {% endif %}
+                                                </select>              
+                                                <input type="submit" value="Update">   
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            {% else %}
+                                <thead>
+                                    <tr>
+                                        <th class="shoping__product"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="shoping__cart__item">
+                                            <h4>You don't have any order</h4>
+                                        </td>
+                                    </tr>
+                                </tbody>         
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shoping Cart Section End -->
+{% endblock %}
+  
+   

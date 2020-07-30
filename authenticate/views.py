@@ -15,10 +15,17 @@ def PostLogin(request):
     if ( (myuser != None) and (myuser.type_account=='customer') ):
         login(request, myuser)
         return redirect('customer:view-menu')
+    elif ( (myuser != None) and (myuser.type_account=='cook') ):
+        login(request, myuser)
+        return redirect('cook:view-orders-list')
+    elif ( (myuser != None) and (myuser.type_account=='vendorowner') ):
+        login(request, myuser)
+        return redirect('vendorowner:view-vendors-list')
     else:
         return HttpResponse('Login failed')
 
 def LogOut(request):
-    Cart.objects.get(customer=request.user.customer).delete()
+    if (request.user.type_account=='customer'):
+        Cart.objects.get(customer=request.user.customer).delete()
     logout(request)
     return redirect('authenticate:get_login')
