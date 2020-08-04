@@ -16,15 +16,19 @@ def PostLogin(request):
     inemail = request.POST.get('email')
     inpassword = request.POST.get('password')
     myuser = authenticate(username=inemail, password=inpassword)
+
     if (myuser is not None):
         login(request, myuser)
-        return redirect('customer:view-menu')
-    elif ( (myuser != None) and (myuser.type_account=='cook') ):
-        login(request, myuser)
-        return redirect('cook:view-orders-list')
-    elif ( (myuser != None) and (myuser.type_account=='vendorowner') ):
-        login(request, myuser)
-        return redirect('vendorowner:view-vendors-list')
+        if (myuser.user_type == 1):
+            return redirect('customer:view-menu')
+        elif (myuser.user_type == 2):
+            return HttpResponse('cook:view-orders-list')
+        elif (myuser.user_type == 3):
+            return HttpResponse('vendorowner:view-vendors-list')
+        elif (myuser.user_type == 4):
+            return redirect('/admin/')
+        else:
+            return HttpResponse('Login failed')
     else:
         return HttpResponse('Login failed')
 

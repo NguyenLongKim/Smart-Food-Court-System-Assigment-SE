@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from model.models.user import User
+from model.models.user import User, Customer, VendorOwner, Cook, Manager
 
 
 class UserCreationForm(forms.ModelForm):
@@ -13,7 +13,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'date_of_birth')
+        fields = ('email', 'date_of_birth', 'user_type')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -29,6 +29,15 @@ class UserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
+            user_type = user.user_type
+            if user_type == 1:
+                Customer.objects.set_user(user=user, user_type=user_type)
+            elif user_type == 2:
+                Cook.objects.set_user(user=user, user_type=user_type)
+            elif user_type == 3:
+                VendorOwner.objects.set_user(user=user, user_type=user_type)
+            elif user_type == 4:
+                Manager.objects.set_user(user=user, user_type=user_type)
         return user
 
 
@@ -54,19 +63,18 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'date_of_birth', 'is_admin', 'is_active')
+    list_display = ('email', 'user_type', 'is_admin', 'is_active')
     list_filter = ('is_admin',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('date_of_birth',)}),
-        ('Permissions', {'fields': ('is_admin',)}),
+        (None, {'fields': ('email', 'password', 'user_type')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'date_of_birth')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'date_of_birth', 'password1', 'password2'),
+            'fields': ('email', 'date_of_birth', 'user_type', 'password1', 'password2'),
         }),
     )
     search_fields = ('email',)
@@ -74,8 +82,54 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-# Now register the new UserAdmin...
+"""
+class CustomerCreationForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ('user', 'balance')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+        return user
+
+
+class CustomerChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('user', 'balance')
+
+
+class CustomerAdmin(admin.ModelAdmin):
+    form = UserChangeForm
+    add_form = UserCreationForm
+
+    # The fields to be used in displaying the User model.
+    # These override the definitions on the base UserAdmin
+    # that reference specific fields on auth.User.
+    list_display = ('user', 'balance')
+    fieldsets = (
+        (None, {'fields': ('user', 'balance')}),
+        # ('Personal info', {'fields': ('first_name', 'last_name', 'date_of_birth')}),
+    )
+    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
+    # overrides get_fieldsets to use this attribute when creating a user.
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('user', 'balance'),
+        }),
+    )
+    search_fields = ('user')
+    ordering = ('user')
+    filter_horizontal = ()
+"""
+
 admin.site.register(User, UserAdmin)
-# ... and, since we're not using Django's built-in permissions,
-# unregister the Group model from admin.
+admin.site.register(Customer)
+admin.site.register(VendorOwner)
+admin.site.register(Cook)
+admin.site.register(Manager)
+
 admin.site.unregister(Group)

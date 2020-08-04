@@ -18,9 +18,9 @@ class UserManager(BaseUserManager):
         if user_type == 1:
             Customer.objects.set_user(user=user, user_type=user_type)
         elif user_type == 2:
-            VendorOwner.objects.set_user(user=user, user_type=user_type)
-        elif user_type == 3:
             Cook.objects.set_user(user=user, user_type=user_type)
+        elif user_type == 3:
+            VendorOwner.objects.set_user(user=user, user_type=user_type)
         elif user_type == 4:
             Manager.objects.set_user(user=user, user_type=user_type)
         return user
@@ -47,9 +47,19 @@ class UserTypeManager(models.Manager):
 class User(AbstractBaseUser):
     USER_TYPE_CHOICES = (
         (1, 'Customer'),
-        (2, 'VendorOwner'),
-        (3, 'Cook'),
+        (2, 'Cook'),
+        (3, 'VendorOwner'),
         (4, 'Manager'),
+    )
+    first_name = models.CharField(
+        verbose_name='first name',
+        max_length=30,
+        default='None',
+    )
+    last_name = models.CharField(
+        verbose_name='last name',
+        max_length=50,
+        default='None',
     )
     email = models.EmailField(
         verbose_name='email address',
@@ -91,6 +101,7 @@ class Customer(models.Model):
         verbose_name = 'Customer'
         verbose_name_plural = 'Customers'
 
+
 class VendorOwner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     objects = UserTypeManager()
@@ -98,6 +109,7 @@ class VendorOwner(models.Model):
     class Meta:
         verbose_name = 'VendorOwner'
         verbose_name_plural = 'VendorOwners'
+
 
 class Cook(models.Model):
     from .vendor import Vendor
@@ -108,6 +120,7 @@ class Cook(models.Model):
     class Meta:
         verbose_name = 'Cook'
         verbose_name_plural = 'Cooks'
+
 
 class Manager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
