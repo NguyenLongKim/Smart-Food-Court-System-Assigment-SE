@@ -3,6 +3,7 @@ from .user import Customer
 from .food import Food
 # Create your models here.
 
+
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     created = models.DateTimeField()
@@ -14,13 +15,13 @@ class Order(models.Model):
         for item in all_items:
             sum = sum + item.total_price
         return round(sum, 4)
-    
+
     @property
     def num_of_items(self):
         return OrderItem.objects.filter(order=self).count()
-        
+
     class Meta:
-        verbose_name = 'Orders'
+        verbose_name = 'Order'
         verbose_name_plural = 'Orders'
 
 
@@ -33,8 +34,8 @@ class OrderItem(models.Model):
 
     @property
     def total_price(self):
-        return round(self.food.price*self.quantity, 4)
+        return round(self.food.price * self.quantity, 4)
 
     class Meta:
-        verbose_name = 'OrderItems'
+        verbose_name = 'OrderItem'
         verbose_name_plural = 'OrderItems'
