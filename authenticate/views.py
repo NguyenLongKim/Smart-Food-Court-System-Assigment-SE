@@ -43,14 +43,6 @@ def GetSignUp(request):
 
 
 def PostSignUp(request):
-    """
-    try:
-        inemail = request.POST.get('email')
-    except ValueError:
-        # if inemail is None:
-        return render(request, 'signup/index.html', {'email_error': 'Email is required'})
-    """
-
     inemail = request.POST.get('email')
     if inemail == "":
         return render(request, 'signup/index.html', {'email_error': 'Email is required'})
@@ -67,12 +59,16 @@ def PostSignUp(request):
     if inDoB == "":
         return render(request, 'signup/index.html', {'bd_error': 'Birth day is required'})
 
-    newuser = User.objects.create_user(
-        email=inemail,
-        date_of_birth=inDoB,
-        user_type=1,
-        password=inpassword,
-    )
+    try:
+        newuser = User.objects.create_user(
+            email=inemail,
+            date_of_birth=inDoB,
+            user_type=1,
+            password=inpassword,
+        )
+    except ValueError:
+        return render(request, 'signup/index.html', {'email_error': 'Email is required'})
+
     if (newuser is not None):
         return render(request, 'signup/signed.html')
     else:
