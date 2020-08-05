@@ -3,6 +3,7 @@ from .user import Customer
 from .food import Food
 # Create your models here.
 
+
 class Cart(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
@@ -19,20 +20,19 @@ class Cart(models.Model):
         return CartItem.objects.filter(cart=self).count()
 
     class Meta:
-        verbose_name = 'Carts'
+        verbose_name = 'Cart'
         verbose_name_plural = 'Carts'
 
-    
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     food = models.ForeignKey(Food, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
-    
+
     @property
     def total_price(self):
-        return round(self.food.price*self.quantity, 4)
+        return round(self.food.price * self.quantity, 4)
 
     class Meta:
-        verbose_name = 'CartItems'
+        verbose_name = 'CartItem'
         verbose_name_plural = 'CartItems'

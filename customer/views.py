@@ -1,12 +1,8 @@
 from django.shortcuts import render, redirect
-from model.models.food import Category, Food
-from model.models.vendor import Vendor
-from model.models.cart import Cart
-from model.models.user import User, Customer, VendorOwner
 from .menu import Menu
 from .cart import CartManagement
 from .order import OrderManagement
-from django.http import HttpResponse
+
 # Create your views here.
     
 def ViewMenu(request):
