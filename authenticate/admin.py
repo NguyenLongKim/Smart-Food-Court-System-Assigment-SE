@@ -82,29 +82,7 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-"""
-class CustomerCreationForm(forms.ModelForm):
-    class Meta:
-        model = Customer
-        fields = ('user', 'balance')
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        if commit:
-            user.save()
-        return user
-
-
-class CustomerChangeForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('user', 'balance')
-
-
 class CustomerAdmin(admin.ModelAdmin):
-    form = UserChangeForm
-    add_form = UserCreationForm
-
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
@@ -121,15 +99,59 @@ class CustomerAdmin(admin.ModelAdmin):
             'fields': ('user', 'balance'),
         }),
     )
-    search_fields = ('user')
-    ordering = ('user')
+    # search_fields = ('user',)
+    ordering = ('user',)
     filter_horizontal = ()
-"""
+
+
+class CookAdmin(admin.ModelAdmin):
+    # The fields to be used in displaying the User model.
+    # These override the definitions on the base UserAdmin
+    # that reference specific fields on auth.User.
+    list_display = ('user', 'work_for')
+    fieldsets = (
+        (None, {'fields': ('user', 'work_for')}),
+        # ('Personal info', {'fields': ('first_name', 'last_name', 'date_of_birth')}),
+    )
+    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
+    # overrides get_fieldsets to use this attribute when creating a user.
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('user', 'work_for'),
+        }),
+    )
+    # search_fields = ('user',)
+    ordering = ('user',)
+    filter_horizontal = ()
+
+
+class VOAdmin(admin.ModelAdmin):
+    # The fields to be used in displaying the User model.
+    # These override the definitions on the base UserAdmin
+    # that reference specific fields on auth.User.
+    list_display = ('user',)
+    fieldsets = (
+        (None, {'fields': ('user',)}),
+        # ('Personal info', {'fields': ('first_name', 'last_name', 'date_of_birth')}),
+    )
+    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
+    # overrides get_fieldsets to use this attribute when creating a user.
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('user',),
+        }),
+    )
+    # search_fields = ('user',)
+    ordering = ('user',)
+    filter_horizontal = ()
+
 
 admin.site.register(User, UserAdmin)
-admin.site.register(Customer)
-admin.site.register(VendorOwner)
-admin.site.register(Cook)
-admin.site.register(Manager)
+admin.site.register(Customer, CustomerAdmin)
+admin.site.register(Cook, CookAdmin)
+admin.site.register(VendorOwner, VOAdmin)
+# admin.site.register(Manager)
 
 admin.site.unregister(Group)
