@@ -1,6 +1,7 @@
 from model.models.user import VendorOwner
 from model.models.vendor import Vendor
 from model.models.food import  Food, Category
+from model.models.order import OrdersLog
 from django.core.exceptions import ObjectDoesNotExist
 
 class VendorOwnerServices:
@@ -47,4 +48,9 @@ class VendorOwnerServices:
         except ObjectDoesNotExist:
             Category.objects.create(vendor=Vendor.objects.get(id=vendor_id), name=category_name)
             return True
+
+    @staticmethod
+    def Statistics(vendor_id):
+        products_statistics = OrdersLog.objects.filter(vendor=Vendor.objects.get(id=vendor_id))
+        return products_statistics
 

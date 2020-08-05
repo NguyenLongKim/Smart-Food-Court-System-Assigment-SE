@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import *
+from .views import ViewOrdersList, ChangeOrderStatus
 
 
 app_name = 'cook'
 
 urlpatterns = [
     path('view-orders-list/', ViewOrdersList ,name='view-orders-list'),
-    path('change-order-status/<int:order_id>', ChangeOrderStatus, name='change-order-status')
+    path('change-order-status/', ChangeOrderStatus, name='change-order-status')
 ]
