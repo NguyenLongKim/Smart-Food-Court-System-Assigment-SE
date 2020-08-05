@@ -27,10 +27,14 @@ class CartManagement:
         CartItem.objects.get(cart=cart, food=food).delete()
 
     @staticmethod
-    def update_quantity(cart, item_id, new_quantity):
-        item = CartItem.objects.get(cart=cart, id=item_id)
-        item.quantity=new_quantity
-        item.save()
+    def update_quantity(cart, new_quantities):
+        items = CartItem.objects.filter(cart=cart)
+        i=0
+        for item in items:
+            item.quantity = new_quantities[i]
+            item.save()
+            i+=1
+        
 
     @staticmethod
     def get_all_items(cart):

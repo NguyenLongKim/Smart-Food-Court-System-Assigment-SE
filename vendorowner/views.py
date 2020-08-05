@@ -72,5 +72,15 @@ def AddNewCategory(request, vendor_id):
             }
             return render(request, 'vendorowner/add-new-category.html', context)
         
-
+def ViewStatistics(request, vendor_id):
+    products_statistics = VendorOwnerServices.Statistics(vendor_id)
+    total_revenue = 0
+    for product_statistics in products_statistics:
+        total_revenue+=product_statistics.revenue
+    context = {
+        'vendor_name': Vendor.objects.get(id=vendor_id).name,
+        'products_statistics': products_statistics,
+        'total_revenue' : total_revenue,
+    }
+    return render(request, 'vendorowner/report.html', context)
 

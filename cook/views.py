@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .cook import CookServices
 # Create your views here.
 
@@ -8,6 +8,6 @@ def ViewOrdersList(request):
     }
     return render(request, 'cook/view-orders-list.html', context)
 
-def ChangeOrderStatus(request, order_id):
-    CookServices.ChangeOrderStatus(order_id,request.POST.get('new_status'))
+def ChangeOrderStatus(request):
+    CookServices.ChangeOrderStatus(request.user.cook, request.POST.getlist('new_status'))
     return redirect('cook:view-orders-list')

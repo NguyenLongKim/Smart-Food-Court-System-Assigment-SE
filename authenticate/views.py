@@ -25,6 +25,5 @@ def PostLogin(request):
         return HttpResponse('Login failed')
 
 def LogOut(request):
-    Cart.objects.get(customer=request.user.customer).delete()
     logout(request)
     return redirect('authenticate:get_login')

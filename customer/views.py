@@ -74,9 +74,9 @@ def RemoveItemFromCart(request, food_id):
     CartManagement.remove_item(cart=cart, food=food)
     return redirect('customer:view-cart')
 
-def UpdateItemInCart(request, item_id):
+def UpdateItemInCart(request):
     cart = CartManagement.get_cart(customer = request.user.customer)
-    CartManagement.update_quantity(cart=cart, item_id=item_id, new_quantity= int(request.POST.get('new_quantity')))
+    CartManagement.update_quantity(cart=cart, new_quantities=request.POST.getlist('new_quantity'))
     return redirect('customer:view-cart')
 
 def Checkout(request):

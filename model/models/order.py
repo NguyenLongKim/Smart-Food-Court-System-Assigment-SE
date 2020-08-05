@@ -1,6 +1,7 @@
 from django.db import models
 from .user import Customer
 from .food import Food
+from .vendor import Vendor
 # Create your models here.
 
 class Order(models.Model):
@@ -38,3 +39,13 @@ class OrderItem(models.Model):
     class Meta:
         verbose_name = 'OrderItems'
         verbose_name_plural = 'OrderItems'
+
+
+class OrdersLog(models.Model):
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+
+    @property
+    def revenue(self):
+        return round(self.food.price*self.quantity,4)

@@ -3,7 +3,7 @@ from .models.user import User, Customer, VendorOwner, Cook, Manager
 from .models.cart import Cart, CartItem
 from .models.food import Category, Food
 from .models.vendor import Vendor
-from .models.order import Order, OrderItem
+from .models.order import Order, OrderItem, OrdersLog
 
 # Register your models here.
 
@@ -30,3 +30,5 @@ admin.site.register(Vendor)
 admin.site.register(Order)
 
 admin.site.register(OrderItem)
+
+admin.site.register(OrdersLog)
