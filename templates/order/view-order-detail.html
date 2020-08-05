@@ -22,7 +22,8 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="shoping__product">Products</th>
+                                    <th class="shoping__product">Foods</th>
+                                    <th>Vendor</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
@@ -37,6 +38,9 @@
                                             <h5>{{item.food.name}}</h5>
                                         </td>
                                         <td>
+                                            {{item.food.vendor.name}}
+                                        </td>
+                                        <td>
                                             {{item.food.price}} VND
                                         </td>
                                         <td>                                                        
@@ -46,7 +50,7 @@
                                             {{item.total_price}} VND
                                         </td>
                                         <td>
-                                            <span>{{item.status}}</span>
+                                            <b style="color:blue" >{{item.status}}</b>
                                         </td>
                                     </tr>
                                 {% endfor %}
