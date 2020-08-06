@@ -97,6 +97,9 @@ class Customer(models.Model):
     balance = models.FloatField(default=0)
     objects = UserTypeManager()
 
+    def __str__(self):
+        return self.user.email
+
     class Meta:
         verbose_name = 'Customer'
         verbose_name_plural = 'Customers'
@@ -105,6 +108,9 @@ class Customer(models.Model):
 class VendorOwner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     objects = UserTypeManager()
+
+    def __str__(self):
+        return self.user.email
 
     class Meta:
         verbose_name = 'VendorOwner'
@@ -117,6 +123,9 @@ class Cook(models.Model):
     work_for = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     objects = UserTypeManager()
 
+    def __str__(self):
+        return self.user.email
+
     class Meta:
         verbose_name = 'Cook'
         verbose_name_plural = 'Cooks'
@@ -126,6 +135,9 @@ class Manager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_staff = True
     objects = UserTypeManager()
+
+    def __str__(self):
+        return self.user.email
 
     class Meta:
         verbose_name = 'Manager'
