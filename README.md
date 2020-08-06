@@ -10,4 +10,4 @@ Or : $bash runserver.sh
 -> Customer services: username: cus1@gmail.com || password: 123   
 -> Cook services: username: cook1@gmail.com || password: 123   
 -> VendorOwner services: username: vo1@gmail.com || password: 123   
--> Manager services: username: admin@gmail.com || password: 123
+-> Manager services: username: admin1@gmail.com || password: 123
