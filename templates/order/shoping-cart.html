@@ -6,9 +6,8 @@
     <div class="col-lg-3">
         <div class="header__cart">
             <ul>
-                <li><a href="{% url 'customer:view-cart' %}"><i class="fa fa-shopping-bag"></i> <span>{{all_items.count}}</span></a></li>
-            </ul>
-            <div><a href="{% url 'customer:view-cart' %}"> My cart</a></div>
+                <li><a href="{% url 'customer:view-cart' %}"><i class="fa fa-shopping-bag"></i> <span>{{cart.num_of_items}}</span></a></li>
+            </ul>     
         </div>
     </div>
 {% endblock %}
@@ -90,7 +89,9 @@
                     <div class="col-lg-12">
                         <div class="shoping__cart__btns">
                             <a href="{% url 'customer:view-menu' %}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                            <input type="submit" value="Update cart" class="primary-btn cart-btn cart-btn-right">
+                            {% if all_items %}
+                                <input type="submit" value="Update cart" class="primary-btn cart-btn cart-btn-right">
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-lg-6">

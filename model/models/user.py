@@ -114,7 +114,7 @@ class VendorOwner(models.Model):
 class Cook(models.Model):
     from .vendor import Vendor
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    work_for = models.ForeignKey(VendorOwner, on_delete=models.CASCADE)
+    work_for = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     objects = UserTypeManager()
 
     class Meta:

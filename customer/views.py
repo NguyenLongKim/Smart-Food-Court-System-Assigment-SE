@@ -9,7 +9,8 @@ def ViewMenu(request):
     context = {
         'categories': Menu.get_all_categories,
         'vendors': Menu.get_all_vendors(),
-        'foods': Menu.get_all_foods()
+        'foods': Menu.get_all_foods(),
+        'cart': CartManagement.get_cart(request.user.customer),
     }
     return render(request, 'order/shop-grid.html', context)
 

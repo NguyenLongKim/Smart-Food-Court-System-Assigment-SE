@@ -22,13 +22,11 @@ def PostLogin(request):
         if (myuser.user_type == 1):
             return redirect('customer:view-menu')
         elif (myuser.user_type == 2):
-            return HttpResponse('cook:view-orders-list')
+            return redirect('cook:view-orders-list')
         elif (myuser.user_type == 3):
-            return HttpResponse('vendorowner:view-vendors-list')
+            return redirect('vendorowner:view-vendors-list')
         elif (myuser.user_type == 4):
             return redirect('/admin/')
-        else:
-            return HttpResponse('Login failed')
     else:
         return HttpResponse('Login failed')
 

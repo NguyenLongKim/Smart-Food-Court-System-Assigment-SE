@@ -43,10 +43,10 @@ class VendorOwnerServices:
     @staticmethod
     def AddNewCategory(vendor_id, category_name):
         try:
-            Category.objects.get(vendor=Vendor.objects.get(id=vendor_id), name=category_name)
+            Category.objects.get(name=category_name)
             return False
         except ObjectDoesNotExist:
-            Category.objects.create(vendor=Vendor.objects.get(id=vendor_id), name=category_name)
+            Category.objects.create(name=category_name)
             return True
 
     @staticmethod

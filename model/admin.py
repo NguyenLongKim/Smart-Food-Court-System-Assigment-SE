@@ -18,8 +18,7 @@ admin.site.register(Food)
 
 admin.site.register(Vendor)
 
-# admin.site.register(Order)
-
+admin.site.register(Order)
 
 admin.site.register(OrderItem)
 

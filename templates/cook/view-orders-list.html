@@ -86,7 +86,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <input type="submit" value="Update" class="primary-btn cart-btn cart-btn-right">
+                        {% if orders_list %}
+                            <input type="submit" value="Update" class="primary-btn cart-btn cart-btn-right">
+                        {% endif %}
                     </div>
                 </div>
             </div>
